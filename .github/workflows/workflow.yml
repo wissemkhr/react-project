@@ -53,3 +53,19 @@ jobs:
         with:
           name: coverage_report
           path: coverage
+
+  docker:
+    name: Docker
+    needs: [unit_test, code_coverage]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repositoy
+        uses: actions/checkout@v7
+      
+      - name: Docker Login
+        uses: docker/login-action@v4
+        with:
+          username: ${{ vars.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_PASSWORD }}
+
+              
